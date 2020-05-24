@@ -1,10 +1,15 @@
 <template>
   <q-layout view="lHh Lpr lFf" class="non-selectable">
-    <q-header elevated>
+    <q-header bordered elevated>
       <q-toolbar flat dense round>
         <q-btn flat dense round icon="info" aria-label="info" @click="dialog = !dialog" />
         <q-space />
-        <q-toolbar-title>{{app_Title}}</q-toolbar-title>
+
+        <div class="text-center col items-center justify-center row no-wrap text-no-wrap">
+          <q-toolbar-title style="font-size: 18px;" v-if="isMobile">{{app_Title}}</q-toolbar-title>
+          <q-toolbar-title v-else>COVID-19 EN SUR AMERICA</q-toolbar-title>
+        </div>
+
         <q-space />
         <q-btn v-if="isMobile" flat dense round @click="ShareSocialMedia" icon="share" />
       </q-toolbar>
@@ -51,7 +56,14 @@
         </q-card-actions>
         <q-card-section class="q-ma-sm q-py-none text-center">
           <div class="text-caption text-grey-8">
-            <q-btn size="sm" @click="openLink('https://covid19ca.app/')" outline rounded color="primary" label="Diseño FrontEnd" />
+            <q-btn
+              size="sm"
+              @click="openLink('https://covid19ca.app/')"
+              outline
+              rounded
+              color="primary"
+              label="Diseño FrontEnd"
+            />
           </div>
         </q-card-section>
       </q-card>
