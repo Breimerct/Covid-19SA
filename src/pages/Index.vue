@@ -9,9 +9,12 @@
             color="primary"
             rounded
             outlined
-            bottom-slots
+            no-error-icon
+            hide-dropdown-icon
+            popup-content-style="font-size:16px;"
             v-model="country_Selected"
             :options="options"
+            label="Seleccione un pais"
           >
             <template v-slot:prepend>
               <q-icon color="primary" name="place" />
@@ -24,7 +27,7 @@
               <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
                 <q-item-section avatar>
                   <!-- <q-icon :name="scope.opt.img" /> -->
-                  <img width="35" :src="scope.opt.img" alt />
+                  <img width="45" :src="scope.opt.img" alt />
                 </q-item-section>
                 <q-item-section>
                   <q-item-label v-html="scope.opt.label" />
@@ -111,7 +114,6 @@
           <ApexColumn />
         </div>
       </div>
-      
     </div>
   </q-page>
 </template>
@@ -232,23 +234,27 @@ export default {
       return value;
     },
     formatter(Valor) {
-      let nums = new Array();
-      let simb = ".";
-      Valor = Valor.toString();
-      Valor = Valor.replace(/\D/g, "");
-      nums = Valor.split("");
-      let long = nums.length - 1;
-      let patron = 3;
-      let prox = 2;
-      let res = "";
-      while (long > prox) {
-        nums.splice(long - prox, 0, simb);
-        prox += patron;
+      try {
+        let nums = new Array();
+        let simb = ".";
+        Valor = Valor.toString();
+        Valor = Valor.replace(/\D/g, "");
+        nums = Valor.split("");
+        let long = nums.length - 1;
+        let patron = 3;
+        let prox = 2;
+        let res = "";
+        while (long > prox) {
+          nums.splice(long - prox, 0, simb);
+          prox += patron;
+        }
+        for (let i = 0; i <= nums.length - 1; i++) {
+          res += nums[i];
+        }
+        return res;
+      } catch (error) {
+        return null;
       }
-      for (let i = 0; i <= nums.length - 1; i++) {
-        res += nums[i];
-      }
-      return res;
     }
   },
 
