@@ -51,7 +51,7 @@
                   <div class="text-h4 texto-green">
                     <span v-if="this.get_data_Covid != null">
                       {{
-                      get_data_Covid.cases | formatNumber
+                      get_data_Covid.cases | formatter
                       }}
                     </span>
                     <span v-else>...</span>
@@ -64,7 +64,7 @@
                     class="text-italic texto-green"
                   >
                     casos por dia+
-                    {{ get_data_Covid.todayCases | formatNumber }}
+                    {{ get_data_Covid.todayCases | formatter }}
                   </div>
                 </div>
               </div>
@@ -73,6 +73,7 @@
         </div>
       </div>
 
+      <!-- Data Covid -->
       <div class="row q-pa-sm q-col-gutter-lg">
         <div class="col-6" v-for="(data, index) in casesCategoriesData" :key="index">
           <q-card dark rounded class="card-border text-white" :class="['bg-'+data.color]">
@@ -91,12 +92,9 @@
                     <div
                       class="text-right text-subtitle1"
                       style="font-size:20px;"
-                    >{{ data.total | formatNumber }}</div>
+                    >{{ data.total | formatter }}</div>
                     <!-- Category Incrmented -->
-                    <div
-                      v-if="data.today !== 0"
-                      class="text-italic text-right"
-                    >+ {{ data.today }}</div>
+                    <div v-if="data.today !== 0" class="text-italic text-right">+ {{ data.today }}</div>
                   </div>
                 </div>
               </div>
@@ -110,13 +108,10 @@
       <!-- data bar -->
       <div class="row q-ma-sm q-pb-md" v-if="this.get_country_selected == 'Todo sur america'">
         <div class="col-12">
-          <q-card class="bg-grey-3">
-            <q-card-section>
-              <ApexColumn />
-            </q-card-section>
-          </q-card>
+          <ApexColumn />
         </div>
       </div>
+      
     </div>
   </q-page>
 </template>
@@ -125,6 +120,7 @@
 import { mapGetters, mapActions, mapMutations } from "vuex";
 import ApexColumn from "components/Grafica/Grafica.vue";
 import donutApex from "components/Grafica/GraficaMuertes.vue";
+import GraficaTest from "components/Grafica/GraficaTests.vue";
 export default {
   name: "PageIndex",
 
@@ -220,7 +216,8 @@ export default {
 
   components: {
     ApexColumn,
-    donutApex
+    donutApex,
+    GraficaTest
   },
 
   created() {
@@ -233,6 +230,25 @@ export default {
       if (isNaN(value)) return "...";
       value = new Intl.NumberFormat().format(value);
       return value;
+    },
+    formatter(Valor) {
+      let nums = new Array();
+      let simb = ".";
+      Valor = Valor.toString();
+      Valor = Valor.replace(/\D/g, "");
+      nums = Valor.split("");
+      let long = nums.length - 1;
+      let patron = 3;
+      let prox = 2;
+      let res = "";
+      while (long > prox) {
+        nums.splice(long - prox, 0, simb);
+        prox += patron;
+      }
+      for (let i = 0; i <= nums.length - 1; i++) {
+        res += nums[i];
+      }
+      return res;
     }
   },
 

@@ -14,7 +14,7 @@ module.exports = function (/* ctx */) {
     boot: [
       
       'axios',
-      'apex'
+      'apex',
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css

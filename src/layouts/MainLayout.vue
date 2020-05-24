@@ -32,7 +32,9 @@
         <q-card-section class="q-py-none text-center">
           <div class="text-h6 text-grey-8">Breimer Correa Torres</div>
           <div class="text-caption text-grey-8">Web App Desarollador</div>
-          <div class="text-caption text-grey-8">v.{{ aboutVersion }}</div>
+          <div class="text-caption text-grey-8">
+            <q-badge color="primary">v.{{ aboutVersion }}</q-badge>
+          </div>
         </q-card-section>
         <q-card-actions align="center" class="q-pb-sm">
           <q-btn
@@ -47,6 +49,11 @@
             :class="'bg-'+item.color"
           />
         </q-card-actions>
+        <q-card-section class="q-ma-sm q-py-none text-center">
+          <div class="text-caption text-grey-8">
+            <q-btn size="sm" @click="openLink('https://covid19ca.app/')" outline rounded color="primary" label="Diseño FrontEnd" />
+          </div>
+        </q-card-section>
       </q-card>
     </q-dialog>
 
@@ -72,7 +79,7 @@ export default {
     return {
       leftDrawerOpen: false,
       dialog: false,
-      aboutVersion: "1.0",
+      aboutVersion: "1.1",
       isStatusBarLight: true,
       isMobile: this.$q.platform.is.mobile,
       social: [

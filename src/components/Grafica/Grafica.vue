@@ -1,11 +1,15 @@
 <template>
   <div>
-    <apexchart
-      type="bar"
-      height="200"
-      :options="countriesTestsChart"
-      :series="get_char_Data.series"
-    />
+    <q-card class="bg-grey-3 fit card-border text-center">
+      <q-card-section>
+        <apexchart
+          type="bar"
+          height="auto"
+          :options="countriesTestsChart"
+          :series="get_contries_apexchart.series"
+        />
+      </q-card-section>
+    </q-card>
   </div>
 </template>
 
@@ -16,7 +20,7 @@ export default {
   data() {
     return {
       chartOptions: {
-        colors: [ "#17ead9"],
+        colors: ["#7FABFF", "#E6FF45", "#17ead9"],
         grid: {
           show: true,
           strokeDashArray: 0,
@@ -49,7 +53,7 @@ export default {
             shadeIntensity: 0.2,
             inverseColors: false,
             opacityFrom: 1,
-            opacityTo: 0.8,
+            opacityTo: 0.9,
             stops: [0, 100]
           }
         },
@@ -60,7 +64,19 @@ export default {
           width: 0
         },
         xaxis: {
-          categories: [],
+          categories: [
+            "Peru",
+            "Venezuela",
+            "Brazil",
+            "Chile",
+            "Colombia",
+            "Argentina",
+            "Ecuador",
+            "Uruguay",
+            "Paraguay",
+            "Bolivia",
+            "Suriname"
+          ],
           labels: {
             style: {
               colors: "#000"
@@ -79,8 +95,24 @@ export default {
         },
         tooltip: {
           y: {
-            formatter: function(val) {
-              return Intl.NumberFormat().format(val);
+            formatter: function(Valor) {
+              let nums = new Array();
+              let simb = ".";
+              Valor = Valor.toString();
+              Valor = Valor.replace(/\D/g, "");
+              nums = Valor.split("");
+              let long = nums.length - 1;
+              let patron = 3;
+              let prox = 2;
+              let res = "";
+              while (long > prox) {
+                nums.splice(long - prox, 0, simb);
+                prox += patron;
+              }
+              for (let i = 0; i <= nums.length - 1; i++) {
+                res += nums[i];
+              }
+              return res;
             }
           }
         }
@@ -94,9 +126,9 @@ export default {
   },
 
   computed: {
-    ...mapGetters("Covid", ["get_char_Data"]),
+    ...mapGetters("Covid", ["get_char_Data", "get_contries_apexchart"]),
     countriesTestsChart() {
-      this.chartOptions.xaxis.categories = this.get_char_Data.categories;
+      //this.chartOptions.xaxis.categories = this.get_contries_apexchart.categories;
       return this.chartOptions;
     }
   },

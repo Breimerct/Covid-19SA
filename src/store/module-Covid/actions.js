@@ -122,44 +122,8 @@ export const getDataCases = ({
       countries.testsPerOneMillion += data[index].testsPerOneMillion;
     }
     commit('set_Data_Covid', countries);
-    dispatch('get_contries_tests', data);
+    commit('set_Char_Data', data);
   } catch (error) {
     console.log(error);
   }
-}
-
-export const get_contries_tests = ({
-  state,
-  commit
-}, payload) => {
-
-  let contries = [];
-  /*Convert from Object to Array */
-  Object.values(payload).forEach(value => {
-    contries.push(value);
-  });
-
-  /* Order array Contries by number of tests */
-  contries.sort(function (a, b) {
-    return b.totalTests - a.totalTests;
-  });
-
-
-  //Chart Data options
-  let chartData = {
-    series: [{
-      name: "Pruebas",
-      data: []
-    }],
-    categories: []
-  };
-
-  //Push countries data into chart options
-  contries.forEach(country => {
-    chartData.categories.push(country.country);
-    chartData.series[0].data.push(country.totalTests);
-  });
-
-  commit('set_Char_Data', chartData);
-
 }
