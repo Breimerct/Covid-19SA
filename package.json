@@ -1,0 +1,33 @@
+{
+  "name": "covid19sa",
+  "version": "0.0.1",
+  "description": "una app sobre gestion e informacón sobre l covid 19 en todo sur america",
+  "productName": "covid19SA",
+  "cordovaId": "covid19SA",
+  "capacitorId": "",
+  "author": "Breimer Correa <breimerct@outlook.com>",
+  "private": true,
+  "scripts": {
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "dependencies": {
+    "@capacitor/core": "^2.1.0",
+    "@mdi/font": "^5.2.45",
+    "@quasar/extras": "^1.0.0",
+    "apexcharts": "^3.19.2",
+    "axios": "^0.18.1",
+    "quasar": "^1.0.0",
+    "vue-apexcharts": "^1.5.3"
+  },
+  "devDependencies": {
+    "@quasar/app": "^1.0.0"
+  },
+  "engines": {
+    "node": ">= 10.18.1",
+    "npm": ">= 6.13.4",
+    "yarn": ">= 1.21.1"
+  },
+  "browserslist": [
+    "last 1 version, not dead, ie >= 11"
+  ]
+}
