@@ -41,25 +41,3 @@ export function get_contries_apexchart(state) {
 
   return chartData;
 }
-
-export const formatoMiles = ({
-  state
-}, Valor) => {
-  let nums = new Array();
-  let simb = ".";
-  Valor = Valor.toString();
-  Valor = Valor.replace(/\D/g, "");
-  nums = Valor.split("");
-  let long = nums.length - 1;
-  let patron = 3;
-  let prox = 2;
-  let res = "";
-  while (long > prox) {
-    nums.splice(long - prox, 0, simb);
-    prox += patron;
-  }
-  for (let i = 0; i <= nums.length - 1; i++) {
-    res += nums[i];
-  }
-  return res;
-}
