@@ -4,6 +4,7 @@
       <div class="row q-ma-sm">
         <div class="col-12">
           <q-select
+            class="non-selectable"
             transition-show="jump-up"
             transition-hide="scale"
             color="primary"
@@ -37,11 +38,11 @@
           </q-select>
         </div>
       </div>
-
+      <div class="q-px-md q-mt-md">
+        <!-- {{ this.get_data_Covid.updated }} -->
+      </div>
       <div class="row q-ma-sm">
         <div class="col-12">
-          <!-- <p class="" v-if="this.get_data_Covid != null"> {{ this.get_data_Covid.updated }} </p> -->
-          {{ this.get_data_Covid.updated }}
           <q-card class="card-border text-white bg-green q-pa-sm">
             <q-card-section class="q-my-none">
               <div class="text-h6 text-weight-light text-weight-light">Total de casos confirmados</div>

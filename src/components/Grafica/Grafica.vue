@@ -5,7 +5,7 @@
         <apexchart
           ref="Apex"
           type="bar"
-          height="auto"
+          height="300"
           :options="getOptions"
           :series="get_contries_apexchart.series"
         />

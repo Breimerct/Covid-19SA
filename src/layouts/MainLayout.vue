@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf" class="non-selectable">
-    <q-header bordered elevated>
-      <q-toolbar flat dense round>
+    <q-header bordered elevated class="bg-grey-3 text-black">
+      <q-toolbar flat round>
         <q-btn flat dense round icon="info" aria-label="info" @click="dialog = !dialog" />
         <q-space />
 
@@ -69,6 +69,10 @@
       </q-card>
     </q-dialog>
 
+    <q-footer elevated class="fixed-bottom bg-grey-3 text-black">
+      <menuTabs />
+    </q-footer>
+
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -77,6 +81,7 @@
 
 <script>
 import EssentialLink from "components/EssentialLink";
+import MenuTabs from 'components/MenuMobil/MenuMobil'
 import { mapState } from "vuex";
 import { Plugins } from "@capacitor/core";
 const { Share } = Plugins;
@@ -84,14 +89,15 @@ export default {
   name: "MainLayout",
 
   components: {
-    EssentialLink
+    EssentialLink,
+    MenuTabs
   },
 
   data() {
     return {
       leftDrawerOpen: false,
       dialog: false,
-      aboutVersion: "1.1",
+      aboutVersion: "1.5",
       isStatusBarLight: true,
       isMobile: this.$q.platform.is.mobile,
       social: [
