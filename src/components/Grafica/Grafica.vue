@@ -6,7 +6,7 @@
           ref="Apex"
           type="bar"
           height="auto"
-          :options="countriesTestsChart"
+          :options="getOptions"
           :series="get_contries_apexchart.series"
         />
       </q-card-section>
@@ -19,24 +19,15 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "ApexColumn",
   data() {
-    return {
-      ApexChartOptions: {
-        labels: ["Breimer", "Correa", "Torres"],
+    return {};
+  },
+
+  computed: {
+    ...mapGetters("Covid", ["get_contries_apexchart"]),
+    getOptions() {
+      let options = {
+        labels: this.get_contries_apexchart.categories,
         colors: ["#7FABFF", "#E6FF45", "#17ead9"],
-        grid: {
-          show: true,
-          strokeDashArray: 0,
-          xaxis: {
-            lines: {
-              show: true
-            }
-          }
-        },
-        lotOptions: {
-          bar: {
-            distributed: false
-          }
-        },
         title: {
           text: "Pruebas por pais",
           align: "center",
@@ -62,40 +53,6 @@ export default {
         dataLabels: {
           enabled: false
         },
-        stroke: {
-          width: 0
-        },
-        xaxis: {
-          type: "category",
-          categories: [
-            "Peru",
-            "Venezuela",
-            "Brazil",
-            "Chile",
-            "Colombia",
-            "Argentina",
-            "Ecuador",
-            "Uruguay",
-            "Paraguay",
-            "Bolivia",
-            "Suriname"
-          ],
-          labels: {
-            style: {
-              colors: "#000"
-            }
-          }
-        },
-        yaxis: {
-          title: {
-            text: "Cantidad"
-          },
-          labels: {
-            style: {
-              color: "#fff"
-            }
-          }
-        },
         tooltip: {
           y: {
             formatter: function(Valor) {
@@ -119,15 +76,7 @@ export default {
             }
           }
         }
-      }
-    };
-  },
-
-  computed: {
-    ...mapGetters("Covid", ["get_contries_apexchart"]),
-    countriesTestsChart() {
-      this.ApexChartOptions.labels = this.get_contries_apexchart.categories;
-      let options = this.ApexChartOptions;
+      };
       return options;
     }
   }

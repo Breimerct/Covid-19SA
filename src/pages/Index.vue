@@ -10,7 +10,6 @@
             rounded
             outlined
             no-error-icon
-            hide-dropdown-icon
             popup-content-style="font-size:16px;"
             v-model="country_Selected"
             :options="options"
@@ -19,9 +18,10 @@
             <template v-slot:prepend>
               <q-icon color="primary" name="place" />
             </template>
-            <!-- <template v-slot:append="imagen">
-              <img width="25" v-bind="imagen.itemProps" v-on="imagen.itemEvents" :src="imagen.opt.img" alt="">
-            </template>-->
+
+            <template v-slot:append v-if="get_data_Covid.img != ''">
+              <img width="35" :src="get_data_Covid.img" alt="">
+            </template>
 
             <template v-slot:option="scope">
               <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
@@ -63,7 +63,7 @@
                   <div
                     v-if="
                       this.get_data_Covid != null &&
-                        this.get_data_Covid.todayCases != 0
+                      this.get_data_Covid.todayCases != 0
                     "
                     class="text-italic texto-green"
                   >
@@ -212,7 +212,26 @@ export default {
           value: "Suriname",
           img:
             "https://upload.wikimedia.org/wikipedia/commons/6/60/Flag_of_Suriname.svg"
-        }
+        },
+        {
+          label: "Guyana",
+          value: "Guyana",
+          img:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Flag_of_Guyana.svg/1200px-Flag_of_Guyana.svg.png"
+        },
+        {
+          label: "Islas Malvinas",
+          value: "Islas Malvinas",
+          img:
+            "https://upload.wikimedia.org/wikipedia/commons/8/83/Flag_of_the_Falkland_Islands.svg"
+        },
+        {
+          label: "Guyana Francesa",
+          value: "Guyana Francesa",
+          img:
+            "https://upload.wikimedia.org/wikipedia/commons/2/29/Flag_of_French_Guiana.svg"
+        },
+
       ]
     };
   },

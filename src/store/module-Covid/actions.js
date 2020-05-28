@@ -31,7 +31,8 @@ var countries = {
   casesPerOneMillion: 0,
   deathsPerOneMillion: 0,
   totalTests: 0,
-  testsPerOneMillion: 0
+  testsPerOneMillion: 0,
+  img : ''
 };
 
 const FormatearFecha = (fecha) => {
@@ -64,7 +65,7 @@ export const getCountry = async ({
 
     if (pais == 'Todo sur america') {
       pais = 'south america'
-      await axios.get(`https://corona.lmao.ninja/v2/continents/${pais}?yesterday&strict`)
+      await axios.get(`https://corona.lmao.ninja/v2/continents/${pais}?today&strict`)
         .then((result) => {
           let data = result.data;
           countries = [];
@@ -81,16 +82,20 @@ export const getCountry = async ({
           countries.deathsPerOneMillion = data.deathsPerOneMillion
           countries.totalTests = data.tests
           countries.testsPerOneMillion = data.testsPerOneMillion
+          countries.img = 'https://image.jimcdn.com/app/cms/image/transf/dimension=439x10000:format=png/path/sce56dabcaa017cc3/image/i34f470af2d636b3e/version/1514490291/image.png'
           
           commit('set_Data_Covid', countries);
           dispatch('getDataApexChars')
-          commit('get_contries_apexchart');
 
         }).catch((err) => {
           console.log(err);
         });
     } else {
-      await axios.get(`https://corona.lmao.ninja/v2/countries/${pais}?yesterday`)
+
+      pais = pais == 'Guyana Francesa' ? 'French Guiana' : pais
+      pais = pais == 'Islas Malvinas' ? 'Malvinas' : pais
+
+      await axios.get(`https://corona.lmao.ninja/v2/countries/${pais || Paises}?today`)
         .then((result) => {
           let data = result.data;
           countries = [];
@@ -107,6 +112,7 @@ export const getCountry = async ({
           countries.deathsPerOneMillion = data.deathsPerOneMillion
           countries.totalTests = data.tests
           countries.testsPerOneMillion = data.testsPerOneMillion
+          countries.img = data.country == 'French Guiana' ? 'https://upload.wikimedia.org/wikipedia/commons/2/29/Flag_of_French_Guiana.svg' : data.countryInfo.flag
 
           commit('set_Data_Covid', countries);
         }).catch((err) => {
@@ -126,22 +132,25 @@ export const getDataApexChars = async ({
   commit
 }) => {
   let country = [
-    "colombia",
-    "brazil",
-    "argentina",
-    "chile",
-    "venezuela",
-    "peru",
-    "ecuador",
-    "bolivia",
-    "paraguay",
-    "uruguay",
-    "suriname",
+    "Argentina",
+    "Bolivia",
+    "Brazil",
+    "Chile",
+    "Colombia",
+    "Ecuador",
+    "Malvinas",
+    "French Guiana",
+    "Guyana",
+    "Paraguay",
+    "Peru",
+    "Suriname",
+    "Uruguay",
+    "Venezuela"
   ];
   let apex = [];
 
   await axios.
-  get(`https://corona.lmao.ninja/v2/countries/${country[0]},${country[1]},${country[2]},${country[3]},${country[4]},${country[5]},${country[6]},${country[7]},${country[8]},${country[9]},${country[10]}?yesterday`)
+  get(`https://corona.lmao.ninja/v2/countries/${country[0]},${country[1]},${country[2]},${country[3]},${country[4]},${country[5]},${country[6]},${country[7]},${country[8]},${country[9]},${country[10]},${country[11]},${country[12]},${country[13]}?yesterday`)
     .then((result) => {
 
       for (const pais of result.data) {
