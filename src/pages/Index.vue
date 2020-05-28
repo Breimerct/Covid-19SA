@@ -40,11 +40,12 @@
 
       <div class="row q-ma-sm">
         <div class="col-12">
+          <!-- <p class="" v-if="this.get_data_Covid != null"> {{ this.get_data_Covid.updated }} </p> -->
+          {{ this.get_data_Covid.updated }}
           <q-card class="card-border text-white bg-green q-pa-sm">
             <q-card-section class="q-my-none">
               <div class="text-h6 text-weight-light text-weight-light">Total de casos confirmados</div>
             </q-card-section>
-
             <q-card-section class="q-py-none">
               <div class="row">
                 <div class="col-4">
@@ -223,16 +224,14 @@ export default {
   },
 
   created() {
-    this.set_country_selected("Todo sur america");
+    //const pais = !localStorage.getItem('pais') ? 'Todo sur america' : localStorage.getItem('pais');
+    this.set_country_selected(
+      !localStorage.getItem('pais') ? 'Todo sur america' : localStorage.getItem('pais')
+    );
     this.getCountry(this.get_country_selected);
   },
 
   filters: {
-    formatNumber(value) {
-      if (isNaN(value)) return "...";
-      value = new Intl.NumberFormat().format(value);
-      return value;
-    },
     formatter(Valor) {
       try {
         let nums = new Array();
@@ -265,7 +264,9 @@ export default {
         return this.get_country_selected;
       },
       set(value) {
-        this.set_country_selected(value.value);
+        localStorage.setItem('pais', value.value);
+        const pais = localStorage.getItem('pais');
+        this.set_country_selected(pais);
         this.getCountry(this.get_country_selected);
       }
     },

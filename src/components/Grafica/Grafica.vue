@@ -3,6 +3,7 @@
     <q-card class="bg-grey-3 fit card-border text-center">
       <q-card-section>
         <apexchart
+          ref="Apex"
           type="bar"
           height="auto"
           :options="countriesTestsChart"
@@ -19,7 +20,8 @@ export default {
   name: "ApexColumn",
   data() {
     return {
-      chartOptions: {
+      ApexChartOptions: {
+        labels: ["Breimer", "Correa", "Torres"],
         colors: ["#7FABFF", "#E6FF45", "#17ead9"],
         grid: {
           show: true,
@@ -64,6 +66,7 @@ export default {
           width: 0
         },
         xaxis: {
+          type: "category",
           categories: [
             "Peru",
             "Venezuela",
@@ -120,19 +123,13 @@ export default {
     };
   },
 
-  created() {
-    //this.getCountry('Todo sur america');
-    //this.get_contries_tests();
-  },
-
   computed: {
-    ...mapGetters("Covid", ["get_char_Data", "get_contries_apexchart"]),
+    ...mapGetters("Covid", ["get_contries_apexchart"]),
     countriesTestsChart() {
-      //this.chartOptions.xaxis.categories = this.get_contries_apexchart.categories;
-      return this.chartOptions;
+      this.ApexChartOptions.labels = this.get_contries_apexchart.categories;
+      let options = this.ApexChartOptions;
+      return options;
     }
-  },
-
-  methods: {}
+  }
 };
 </script>
