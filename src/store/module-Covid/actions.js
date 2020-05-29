@@ -83,7 +83,7 @@ export const getCountry = async ({
           localStorage.setItem('fechaContinente', FormatearFecha(data.updated))
 
           if (dateUpdatedSouthAmerica != FormatearFecha(data.updated)) {
-            
+
             Notify.create({
               message: `
                 <span>
@@ -331,7 +331,7 @@ export const getDateperDays = async ({
     let casos = country.timeline.cases;
     let Muertes = country.timeline.deaths;
     let Recuperados = country.timeline.recovered;
-
+    
     commit('set_Casos_Por_Dia', casos);
     commit('set_Muertes_Por_Dia', Muertes);
     commit('set_Recuperados_Por_Dia', Recuperados);

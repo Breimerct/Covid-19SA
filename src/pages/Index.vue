@@ -50,7 +50,7 @@
                 </q-item-section>
 
                 <q-item-section>
-                  <q-item-label>Ùltima actualizaciòn</q-item-label>
+                  <q-item-label>Ùltima actualizaciòn de los datos</q-item-label>
                   <q-item-label class="text-white" caption>{{ this.get_data_Covid.updated }}</q-item-label>
                 </q-item-section>
               </q-item>
