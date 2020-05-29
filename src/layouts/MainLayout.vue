@@ -11,6 +11,15 @@
           aria-label="info"
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
+        <q-btn
+          flat
+          dense
+          round
+          icon="info"
+          aria-label="info"
+          @click="dialog = !dialog"
+          v-if="isMobile"
+        />
         <q-space />
 
         <div class="text-center col items-center justify-center row no-wrap text-no-wrap">
@@ -141,12 +150,12 @@ export default {
           icon: "home",
           link: "/"
         },
-        {
-          title: "Cuidate",
-          caption: "",
-          icon: "favorite",
-          link: "/Cuidate"
-        },
+        // {
+        //   title: "Cuidate",
+        //   caption: "",
+        //   icon: "favorite",
+        //   link: "/Cuidate"
+        // },
 
       ]
     };
