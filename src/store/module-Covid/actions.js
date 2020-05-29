@@ -63,8 +63,8 @@ export const getCountry = async ({
      * https://coronavirus-19-api.herokuapp.com/countries
      */
 
-    if (pais == 'Todo sur america' || state.country_Selected == '') {
-      commit('set_country_selected', pais)
+    if (pais == 'Todo sur america') {
+      dispatch('getDataApexChars')
       pais = 'south america'
       await axios.get(`https://corona.lmao.ninja/v2/continents/${pais}?today&strict`)
         .then((result) => {
@@ -84,7 +84,7 @@ export const getCountry = async ({
           countries.totalTests = data.tests
           countries.testsPerOneMillion = data.testsPerOneMillion
           countries.img = 'https://image.jimcdn.com/app/cms/image/transf/dimension=439x10000:format=png/path/sce56dabcaa017cc3/image/i34f470af2d636b3e/version/1514490291/image.png'
-          
+          //commit('set_Data_Covid', countries);
           dispatch('getDataApexChars')
 
         }).catch((err) => {
@@ -95,7 +95,7 @@ export const getCountry = async ({
       pais = pais == 'Guyana Francesa' ? 'French Guiana' : pais
       pais = pais == 'Islas Malvinas' ? 'Malvinas' : pais
 
-      await axios.get(`https://corona.lmao.ninja/v2/countries/${pais || Paises}?today`)
+      await axios.get(`https://corona.lmao.ninja/v2/countries/${pais}?today`)
         .then((result) => {
           let data = result.data;
           countries = [];
@@ -113,12 +113,11 @@ export const getCountry = async ({
           countries.totalTests = data.tests
           countries.testsPerOneMillion = data.testsPerOneMillion
           countries.img = data.country == 'French Guiana' ? 'https://upload.wikimedia.org/wikipedia/commons/2/29/Flag_of_French_Guiana.svg' : data.countryInfo.flag
-          
+          commit('set_Data_Covid', countries);
         }).catch((err) => {
           console.log(err);
         });
     }
-    commit('set_Data_Covid', countries);
 
   } catch (error) {
     console.log(error);
@@ -129,7 +128,8 @@ export const getCountry = async ({
 
 export const getDataApexChars = async ({
   state,
-  commit
+  commit,
+  dispatch
 }) => {
   let country = [
     "Argentina",
@@ -172,7 +172,7 @@ export const getDataApexChars = async ({
         apex.push(countries);
 
       }
-      
+      dispatch('getDataCases', apex);
       commit('set_Char_Data', apex);
 
     }).catch((err) => {
