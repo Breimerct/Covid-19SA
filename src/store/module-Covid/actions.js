@@ -9,6 +9,10 @@ import {
   QSpinnerGears
 } from 'quasar'
 
+import {
+  Notify
+} from 'quasar'
+
 LoadingBar.setDefaults({
   color: 'green',
   size: '2px',
@@ -54,7 +58,8 @@ export const getCountry = async ({
     Loading.show({
       spinner: QSpinnerGears,
     })
-
+    let dateUpdatedSouthAmerica = !localStorage.getItem('fechaContinente') ? '' : localStorage.getItem('fechaContinente');
+    let dateUpdatedPais = !localStorage.getItem('fechaPais') ? '' : localStorage.getItem('fechaPais');
     /**
      * Esta es la api que usaba antes
      * https://coronavirus-19-api.herokuapp.com/countries
@@ -66,6 +71,28 @@ export const getCountry = async ({
       await axios.get(`https://corona.lmao.ninja/v2/continents/${pais}?today&strict`)
         .then((result) => {
           let data = result.data;
+
+          localStorage.setItem('fechaContinente', FormatearFecha(data.updated))
+
+          if (dateUpdatedSouthAmerica != FormatearFecha(data.updated)) {
+            Notify.create({
+              progress: true,
+              message: `
+                <span>
+                  Base de datos actualizada.
+                </span>
+              `,
+              html: true,
+              caption: FormatearFecha(data.updated),
+              position: 'top-right',
+              timeout: 3500,
+              textColor: 'white',
+              type: 'info'
+            })
+
+            localStorage.setItem('fechaContinente', FormatearFecha(data.updated))
+          }
+
           countries = [];
           countries.country = 'sur america'
           countries.updated = FormatearFecha(data.updated)
@@ -95,6 +122,30 @@ export const getCountry = async ({
       await axios.get(`https://corona.lmao.ninja/v2/countries/${pais}?today`)
         .then((result) => {
           let data = result.data;
+
+          localStorage.setItem('fechaPais', FormatearFecha(data.updated))
+
+          if (dateUpdatedPais != FormatearFecha(data.updated)) {
+
+            Notify.create({
+              progress: true,
+              message: `
+                <span>
+                  Base de datos actualizada.
+                </span>
+              `,
+              html: true,
+              caption: FormatearFecha(data.updated),
+              position: 'top-right',
+              timeout: 3500,
+              textColor: 'white',
+              type: 'info'
+            })
+
+            localStorage.setItem('fechaPais', FormatearFecha(data.updated))
+
+          }
+
           countries = [];
           countries.country = data.country
           countries.updated = FormatearFecha(data.updated)
@@ -171,7 +222,7 @@ export const getDataApexChars = async ({
         apex.push(countries);
 
       }
-      dispatch('getDataCases', apex);
+      //dispatch('getDataCases', apex);
       commit('set_Char_Data', apex);
 
     }).catch((err) => {

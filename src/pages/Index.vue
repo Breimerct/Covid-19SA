@@ -2,7 +2,7 @@
   <q-pull-to-refresh @refresh="refresh" color="black" bg-color="white" icon="autorenew">
     <q-page class="flex q-pa-sm doc-container justify-center non-selectable">
       <div class="column main-column">
-        
+<!-- ---------------------------------------------------------------------------------------------------------- -->
         <div class="row q-ma-sm">
           <div class="col-12">
             <q-select
@@ -19,7 +19,7 @@
                 <q-icon color="primary" name="place" />
               </template>
 
-              <template v-slot:append v-if="get_data_Covid.img != ''">
+              <template v-slot:append v-if="this.get_data_Covid.img != ''">
                 <img width="35" :src="get_data_Covid.img" />
               </template>
 
@@ -39,7 +39,7 @@
         </div>
 
         <div class="q-px-md q-mt-md">
-          {{ this.get_data_Covid.updated }}
+          <!-- {{ this.get_data_Covid.updated }} -->
         </div>
 
         <div class="row q-ma-sm">
@@ -109,8 +109,8 @@
           </div>
         </div>
 
-
-        <div class="row q-ma-sm q-pb-md" v-if="this.get_country_selected != 'Todo sur america'">
+        <!-- Estadisticas por dia -->
+        <div class="row q-ma-sm q-pb-md" v-if="this.get_country_selected == ''">
           <div class="col-12">
             <GraficaPorDia />
           </div>
@@ -122,7 +122,7 @@
             <ApexColumn />
           </div>
         </div>
-
+<!-- ---------------------------------------------------------------------------------------------------------- -->
       </div>
     </q-page>
   </q-pull-to-refresh>
@@ -371,17 +371,6 @@ export default {
         console.log(error);
       } finally {
         done();
-        this.$q.notify({
-          progress: true,
-          caption: this.FormatearFecha(new Date()),
-          timeout: 2500,
-          message: `
-        <span class="notificacion">
-          Actualizado
-        </span>
-        `,
-          html: true
-        });
       }
     }
   }
