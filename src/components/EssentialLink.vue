@@ -2,6 +2,7 @@
   <q-item
     clickable
     :to="link"
+    exact
   >
     <q-item-section
       v-if="icon"

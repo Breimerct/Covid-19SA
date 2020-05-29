@@ -18,18 +18,16 @@ export function get_contries_apexchart(state) {
   });
 
   /* Order array Contries by number of tests */
-  contries.sort(function(a, b) {
-     return b.totalTests - a.totalTests;
-   });
+  contries.sort(function (a, b) {
+    return b.totalTests - a.totalTests;
+  });
 
   //Chart Data options
   let chartData = {
-    series: [
-      {
-        name: "Pruebas",
-        data: []
-      }
-    ],
+    series: [{
+      name: "Pruebas",
+      data: []
+    }],
     categories: []
   };
 
@@ -40,4 +38,42 @@ export function get_contries_apexchart(state) {
   });
 
   return chartData;
+}
+
+export function get_Casos_Por_Dia(state) {
+  try {
+    let fechaInit = []
+    let char_Data = {
+      series: [{
+          name: 'Casos por día',
+          data: []
+        },
+        {
+          name: 'Muertes por día',
+          data: []
+        },
+        {
+          name: 'Recuperados por día',
+          data: []
+        }
+      ]
+    }
+
+    Object.keys(state.casos_Por_Dia).forEach(date => {
+      char_Data.series[0].data.push([new Date(date).getTime(), state.casos_Por_Dia[date]])
+      fechaInit.push(date);
+    })
+
+    Object.keys(state.Muertes_Por_Dia).forEach(date => {
+      char_Data.series[1].data.push([new Date(date).getTime(), state.Muertes_Por_Dia[date]])
+    })
+
+    Object.keys(state.Recuperados_Por_Dia).forEach(date => {
+      char_Data.series[2].data.push([new Date(date).getTime(), state.Recuperados_Por_Dia[date]])
+    })
+
+    return char_Data
+  } catch (error) {
+    return char_Data = null;
+  }
 }

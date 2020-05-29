@@ -2,6 +2,7 @@
   <q-pull-to-refresh @refresh="refresh" color="black" bg-color="white" icon="autorenew">
     <q-page class="flex q-pa-sm doc-container justify-center non-selectable">
       <div class="column main-column">
+        
         <div class="row q-ma-sm">
           <div class="col-12">
             <q-select
@@ -19,14 +20,14 @@
               </template>
 
               <template v-slot:append v-if="get_data_Covid.img != ''">
-                <img width="35" :src="get_data_Covid.img" alt />
+                <img width="35" :src="get_data_Covid.img" />
               </template>
 
               <template v-slot:option="scope">
                 <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
                   <q-item-section avatar>
                     <!-- <q-icon :name="scope.opt.img" /> -->
-                    <img width="45" :src="scope.opt.img" alt />
+                    <img width="45" :src="scope.opt.img" />
                   </q-item-section>
                   <q-item-section>
                     <q-item-label v-html="scope.opt.label" />
@@ -36,9 +37,11 @@
             </q-select>
           </div>
         </div>
+
         <div class="q-px-md q-mt-md">
-          <!-- {{ this.get_data_Covid.updated }} -->
+          {{ this.get_data_Covid.updated }}
         </div>
+
         <div class="row q-ma-sm">
           <div class="col-12">
             <q-card class="card-border text-white bg-green q-pa-sm">
@@ -105,8 +108,13 @@
             </q-card>
           </div>
         </div>
-        <!-- Data circle -->
-        <!-- <donutApex /> -->
+
+
+        <div class="row q-ma-sm q-pb-md" v-if="this.get_country_selected != 'Todo sur america'">
+          <div class="col-12">
+            <GraficaPorDia />
+          </div>
+        </div>
 
         <!-- data bar -->
         <div class="row q-ma-sm q-pb-md" v-if="this.get_country_selected == 'Todo sur america'">
@@ -114,6 +122,7 @@
             <ApexColumn />
           </div>
         </div>
+
       </div>
     </q-page>
   </q-pull-to-refresh>
@@ -123,7 +132,7 @@
 import { mapGetters, mapActions, mapMutations } from "vuex";
 import ApexColumn from "components/Grafica/Grafica.vue";
 import donutApex from "components/Grafica/GraficaMuertes.vue";
-import GraficaTest from "components/Grafica/GraficaTests.vue";
+import GraficaPorDia from "components/Grafica/GraficaPorDia.vue";
 export default {
   name: "PageIndex",
 
@@ -213,24 +222,29 @@ export default {
           img:
             "https://upload.wikimedia.org/wikipedia/commons/6/60/Flag_of_Suriname.svg"
         },
+        //Guyana
         {
           label: "Guyana",
           value: "Guyana",
           img:
             "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Flag_of_Guyana.svg/1200px-Flag_of_Guyana.svg.png"
         },
+        /**
+        //Islas Malvinas
         {
           label: "Islas Malvinas",
           value: "Islas Malvinas",
           img:
             "https://upload.wikimedia.org/wikipedia/commons/8/83/Flag_of_the_Falkland_Islands.svg"
         },
+        //Guyana Francesa
         {
           label: "Guyana Francesa",
           value: "Guyana Francesa",
           img:
             "https://upload.wikimedia.org/wikipedia/commons/2/29/Flag_of_French_Guiana.svg"
         }
+        */
       ]
     };
   },
@@ -238,7 +252,7 @@ export default {
   components: {
     ApexColumn,
     donutApex,
-    GraficaTest
+    GraficaPorDia
   },
 
   created() {
@@ -278,7 +292,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters("Covid", ["get_country_selected", "get_data_Covid"]),
+    ...mapGetters("Covid", ["get_country_selected", "get_data_Covid", "get_Casos_Por_Dia"]),
     country_Selected: {
       get() {
         return this.get_country_selected;
@@ -382,6 +396,8 @@ export default {
 
 .notificacion {
   opacity: 0.5;
+  background-color: white;
+  color: black;
 }
 
 @media (max-width: $breakpoint-sm-max) {

@@ -2,7 +2,15 @@
   <q-layout view="lHh Lpr lFf" class="non-selectable">
     <q-header bordered elevated class="bg-grey-3 text-black">
       <q-toolbar flat round>
-        <q-btn flat dense round icon="info" aria-label="info" @click="dialog = !dialog" />
+        <q-btn
+          v-if="!isMobile"
+          flat
+          dense
+          round
+          icon="menu"
+          aria-label="info"
+          @click="leftDrawerOpen = !leftDrawerOpen"
+        />
         <q-space />
 
         <div class="text-center col items-center justify-center row no-wrap text-no-wrap">
@@ -11,16 +19,25 @@
         </div>
 
         <q-space />
+        <q-btn
+          flat
+          dense
+          round
+          icon="info"
+          aria-label="info"
+          @click="dialog = !dialog"
+          v-if="!isMobile"
+        />
         <q-btn v-if="isMobile" flat dense round @click="ShareSocialMedia" icon="share" />
       </q-toolbar>
     </q-header>
 
-    <!-- <q-drawer v-model="leftDrawerOpen" show-if-above bordered content-class="bg-grey-1">
+    <q-drawer v-model="leftDrawerOpen" show-if-above bordered content-class="bg-grey-1">
       <q-list>
-        <q-item-label header class="text-grey-8">Essential Links</q-item-label>
+        <q-item-label header class="text-grey-8">Covid-19 Sur América</q-item-label>
         <EssentialLink v-for="link in essentialLinks" :key="link.title" v-bind="link" />
       </q-list>
-    </q-drawer>-->
+    </q-drawer>
 
     <q-dialog v-model="dialog" position="bottom">
       <q-card class="q-mt-lg">
@@ -65,11 +82,11 @@
               label="Diseño FrontEnd"
             />
           </div>
-        </q-card-section> -->
+        </q-card-section>-->
       </q-card>
     </q-dialog>
 
-    <q-footer elevated class="fixed-bottom bg-grey-3 text-black">
+    <q-footer v-if="isMobile" elevated class="fixed-bottom bg-grey-3 text-black">
       <menuTabs />
     </q-footer>
 
@@ -81,7 +98,7 @@
 
 <script>
 import EssentialLink from "components/EssentialLink";
-import MenuTabs from 'components/MenuMobil/MenuMobil'
+import MenuTabs from "components/MenuMobil/MenuMobil";
 import { mapState } from "vuex";
 import { Plugins } from "@capacitor/core";
 const { Share } = Plugins;
@@ -119,11 +136,18 @@ export default {
       ],
       essentialLinks: [
         {
-          title: "Docs",
-          caption: "quasar.dev",
-          icon: "school",
+          title: "Home",
+          caption: "",
+          icon: "home",
           link: "/"
-        }
+        },
+        {
+          title: "Cuidate",
+          caption: "",
+          icon: "favorite",
+          link: "/Cuidate"
+        },
+
       ]
     };
   },

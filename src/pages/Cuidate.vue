@@ -2,21 +2,41 @@
   <q-page class="flex q-pa-sm doc-container justify-center non-selectable">
     <div class="column main-column">
       <div class="row">
-        <q-timeline :layout="layout" color="primary">
-          <q-timeline-entry heading>
-            
+        <q-timeline layout="loose" color="primary" class="q-px-md">
+          <q-timeline-entry heading class="text-center">Cuidate</q-timeline-entry>
+
+          <q-timeline-entry title="Usa tapabocas" side="left" icon="check">
+            <img
+              width
+              height
+              style="max-width: 140px;"
+              src="https://bienestarips.com/wp-content/uploads/2020/03/CorRecurso-3@3x-100.jpg"
+            />
+          </q-timeline-entry>
+
+          <q-timeline-entry icon="check" title="lavate las manos" side="right">
+            <img
+              width
+              style="max-width: 140px;"
+              src="https://4.bp.blogspot.com/-c_jnpLIYEto/UG87oDwGVqI/AAAAAAAAPP0/L9ZxFQSLAzo/s1600/descarga+(1).jpg"
+            />
           </q-timeline-entry>
 
           <q-timeline-entry title="Usa tapabocas" side="left" icon="check">
-            <img width="" height="" style="max-width: 140px;" src="https://bienestarips.com/wp-content/uploads/2020/03/CorRecurso-3@3x-100.jpg" alt="">
+            <img
+              width
+              height
+              style="max-width: 140px;"
+              src="https://bienestarips.com/wp-content/uploads/2020/03/CorRecurso-3@3x-100.jpg"
+            />
           </q-timeline-entry>
 
-          <q-timeline-entry
-            icon="check"
-            title="lavate las manos"
-            side="right"
-          >
-            <img width="" style="max-width: 140px;" src="https://4.bp.blogspot.com/-c_jnpLIYEto/UG87oDwGVqI/AAAAAAAAPP0/L9ZxFQSLAzo/s1600/descarga+(1).jpg" alt="">
+          <q-timeline-entry icon="check" title="lavate las manos" side="right">
+            <img
+              width
+              style="max-width: 140px;"
+              src="https://4.bp.blogspot.com/-c_jnpLIYEto/UG87oDwGVqI/AAAAAAAAPP0/L9ZxFQSLAzo/s1600/descarga+(1).jpg"
+            />
           </q-timeline-entry>
         </q-timeline>
       </div>

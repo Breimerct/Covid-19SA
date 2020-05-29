@@ -6,9 +6,6 @@ import {
 
 import {
   Loading,
-
-  // optional!, for example below
-  // with custom spinner
   QSpinnerGears
 } from 'quasar'
 
@@ -32,7 +29,7 @@ var countries = {
   deathsPerOneMillion: 0,
   totalTests: 0,
   testsPerOneMillion: 0,
-  img : ''
+  img: ''
 };
 
 const FormatearFecha = (fecha) => {
@@ -64,7 +61,7 @@ export const getCountry = async ({
      */
 
     if (pais == 'Todo sur america') {
-      dispatch('getDataApexChars')
+      //dispatch('getDataApexChars')
       pais = 'south america'
       await axios.get(`https://corona.lmao.ninja/v2/continents/${pais}?today&strict`)
         .then((result) => {
@@ -84,12 +81,12 @@ export const getCountry = async ({
           countries.totalTests = data.tests
           countries.testsPerOneMillion = data.testsPerOneMillion
           countries.img = 'https://image.jimcdn.com/app/cms/image/transf/dimension=439x10000:format=png/path/sce56dabcaa017cc3/image/i34f470af2d636b3e/version/1514490291/image.png'
-          //commit('set_Data_Covid', countries);
           dispatch('getDataApexChars')
 
         }).catch((err) => {
           console.log(err);
         });
+
     } else {
 
       pais = pais == 'Guyana Francesa' ? 'French Guiana' : pais
@@ -113,11 +110,13 @@ export const getCountry = async ({
           countries.totalTests = data.tests
           countries.testsPerOneMillion = data.testsPerOneMillion
           countries.img = data.country == 'French Guiana' ? 'https://upload.wikimedia.org/wikipedia/commons/2/29/Flag_of_French_Guiana.svg' : data.countryInfo.flag
-          commit('set_Data_Covid', countries);
+
+          dispatch('getDateperDays', pais)
         }).catch((err) => {
           console.log(err);
         });
     }
+    commit('set_Data_Covid', countries);
 
   } catch (error) {
     console.log(error);
@@ -138,19 +137,19 @@ export const getDataApexChars = async ({
     "Chile",
     "Colombia",
     "Ecuador",
-    "Malvinas",
-    "French Guiana",
     "Guyana",
     "Paraguay",
     "Peru",
     "Suriname",
     "Uruguay",
-    "Venezuela"
+    "Venezuela",
+    "French Guiana",
+    "Malvinas",
   ];
   let apex = [];
 
   await axios.
-  get(`https://corona.lmao.ninja/v2/countries/${country[0]},${country[1]},${country[2]},${country[3]},${country[4]},${country[5]},${country[6]},${country[7]},${country[8]},${country[9]},${country[10]},${country[11]},${country[12]},${country[13]}?yesterday`)
+  get(`https://corona.lmao.ninja/v2/countries/${country[0]},${country[1]},${country[2]},${country[3]},${country[4]},${country[5]},${country[6]},${country[7]},${country[8]},${country[9]},${country[10]},${country[11]}?yesterday`)
     .then((result) => {
 
       for (const pais of result.data) {
@@ -225,8 +224,10 @@ export const getCovidSouthAmerica = ({
   }
 }
 
-/*funcion que realiza todos los calculos para saber todos 
-los casos, muertes, recuperados, acticos, etc en sur america*/
+/**
+ *funcion que realiza todos los calculos para saber todos 
+ *los casos, muertes, recuperados, acticos, etc en sur america
+ */
 export const getDataCases = ({
   commit,
   dispatch,
@@ -263,6 +264,28 @@ export const getDataCases = ({
     }
     commit('set_Data_Covid', countries);
     commit('set_Char_Data', data);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const getDateperDays = async ({
+  state,
+  commit,
+  dispatch
+}, payload) => {
+  try {
+
+    const country = await (await axios.get(`https://corona.lmao.ninja/v2/historical/${payload}?lastdays=30`)).data;
+
+    let casos = country.timeline.cases;
+    let Muertes = country.timeline.deaths;
+    let Recuperados = country.timeline.recovered;
+
+    commit('set_Casos_Por_Dia', casos);
+    commit('set_Muertes_Por_Dia', Muertes);
+    commit('set_Recuperados_Por_Dia', Recuperados);
+
   } catch (error) {
     console.log(error);
   }
