@@ -1,123 +1,122 @@
 <template>
-  <q-page class="flex q-pa-sm doc-container justify-center non-selectable">
-    <div class="column main-column">
-      <div class="row q-ma-sm">
-        <div class="col-12">
-          <q-select
-            class="non-selectable"
-            transition-show="jump-up"
-            transition-hide="scale"
-            color="primary"
-            rounded
-            outlined
-            no-error-icon
-            popup-content-style="font-size:16px;"
-            v-model="country_Selected"
-            :options="options"
-            label="Seleccione un pais"
-          >
-            <template v-slot:prepend>
-              <q-icon color="primary" name="place" />
-            </template>
+  <q-pull-to-refresh @refresh="refresh" color="black" bg-color="white" icon="autorenew">
+    <q-page class="flex q-pa-sm doc-container justify-center non-selectable">
+      <div class="column main-column">
+        <div class="row q-ma-sm">
+          <div class="col-12">
+            <q-select
+              color="primary"
+              rounded
+              outlined
+              no-error-icon
+              popup-content-style="font-size:16px;"
+              v-model="country_Selected"
+              :options="options"
+              label="Seleccione un pais"
+            >
+              <template v-slot:prepend>
+                <q-icon color="primary" name="place" />
+              </template>
 
-            <template v-slot:append v-if="get_data_Covid.img != ''">
-              <img width="35" :src="get_data_Covid.img" alt="">
-            </template>
+              <template v-slot:append v-if="get_data_Covid.img != ''">
+                <img width="35" :src="get_data_Covid.img" alt />
+              </template>
 
-            <template v-slot:option="scope">
-              <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
-                <q-item-section avatar>
-                  <!-- <q-icon :name="scope.opt.img" /> -->
-                  <img width="45" :src="scope.opt.img" alt />
-                </q-item-section>
-                <q-item-section>
-                  <q-item-label v-html="scope.opt.label" />
-                </q-item-section>
-              </q-item>
-            </template>
-          </q-select>
+              <template v-slot:option="scope">
+                <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+                  <q-item-section avatar>
+                    <!-- <q-icon :name="scope.opt.img" /> -->
+                    <img width="45" :src="scope.opt.img" alt />
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item-label v-html="scope.opt.label" />
+                  </q-item-section>
+                </q-item>
+              </template>
+            </q-select>
+          </div>
         </div>
-      </div>
-      <div class="q-px-md q-mt-md">
-        <!-- {{ this.get_data_Covid.updated }} -->
-      </div>
-      <div class="row q-ma-sm">
-        <div class="col-12">
-          <q-card class="card-border text-white bg-green q-pa-sm">
-            <q-card-section class="q-my-none">
-              <div class="text-h6 text-weight-light text-weight-light">Total de casos confirmados</div>
-            </q-card-section>
-            <q-card-section class="q-py-none">
-              <div class="row">
-                <div class="col-4">
-                  <q-icon name="mdi-check-bold" color="greenn" size="32px"></q-icon>
-                </div>
-                <div class="col-8 text-right">
-                  <div class="text-h4 texto-green">
-                    <span v-if="this.get_data_Covid != null">
-                      {{
-                      get_data_Covid.cases | formatter
-                      }}
-                    </span>
-                    <span v-else>...</span>
+        <div class="q-px-md q-mt-md">
+          <!-- {{ this.get_data_Covid.updated }} -->
+        </div>
+        <div class="row q-ma-sm">
+          <div class="col-12">
+            <q-card class="card-border text-white bg-green q-pa-sm">
+              <q-card-section class="q-my-none">
+                <div class="text-h6 text-weight-light text-weight-light">Total de casos confirmados</div>
+              </q-card-section>
+              <q-card-section class="q-py-none">
+                <div class="row">
+                  <div class="col-4">
+                    <q-icon name="mdi-check-bold" color="greenn" size="32px"></q-icon>
                   </div>
-                  <div
-                    v-if="
+                  <div class="col-8 text-right">
+                    <div class="text-h4 texto-green">
+                      <span v-if="this.get_data_Covid != null">
+                        {{
+                        get_data_Covid.cases | formatter
+                        }}
+                      </span>
+                      <span v-else>...</span>
+                    </div>
+                    <div
+                      v-if="
                       this.get_data_Covid != null &&
                       this.get_data_Covid.todayCases != 0
                     "
-                    class="text-italic texto-green"
-                  >
-                    casos por dia+
-                    {{ get_data_Covid.todayCases | formatter }}
+                      class="text-italic texto-green"
+                    >
+                      casos por dia+
+                      {{ get_data_Covid.todayCases | formatter }}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </q-card-section>
-          </q-card>
+              </q-card-section>
+            </q-card>
+          </div>
         </div>
-      </div>
 
-      <!-- Data Covid -->
-      <div class="row q-pa-sm q-col-gutter-lg">
-        <div class="col-6" v-for="(data, index) in casesCategoriesData" :key="index">
-          <q-card dark rounded class="card-border text-white" :class="['bg-'+data.color]">
-            <q-card-section>
-              <div class="text-h6 text-weight-light">{{ data.name }}</div>
-            </q-card-section>
+        <!-- Data Covid -->
+        <div class="row q-pa-sm q-col-gutter-lg">
+          <div class="col-6" v-for="(data, index) in casesCategoriesData" :key="index">
+            <q-card dark rounded class="card-border text-white" :class="['bg-'+data.color]">
+              <q-card-section>
+                <div class="text-h6 text-weight-light">{{ data.name }}</div>
+              </q-card-section>
 
-            <q-card-section class="q-pt-none q-pb-xs">
-              <div class="column" style="height: 60px">
-                <div class="row">
-                  <div class="col-4">
-                    <q-icon :name="data.icon" size="md"></q-icon>
-                  </div>
+              <q-card-section class="q-pt-none q-pb-xs">
+                <div class="column" style="height: 60px">
+                  <div class="row">
+                    <div class="col-4">
+                      <q-icon :name="data.icon" size="md"></q-icon>
+                    </div>
 
-                  <div class="col-8 q-pt-xs">
-                    <div
-                      class="text-right text-subtitle1"
-                      style="font-size:20px;"
-                    >{{ data.total | formatter }}</div>
-                    <!-- Category Incrmented -->
-                    <div v-if="data.today !== 0" class="text-italic text-right">+ {{ data.today }}</div>
+                    <div class="col-8 q-pt-xs">
+                      <div
+                        class="text-right text-subtitle1"
+                        style="font-size:20px;"
+                      >{{ data.total | formatter }}</div>
+                      <!-- Category Incrmented -->
+                      <div v-if="data.today !== 0" class="text-italic text-right">+ {{ data.today }}</div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </q-card-section>
-          </q-card>
+              </q-card-section>
+            </q-card>
+          </div>
         </div>
-      </div>
-      <!-- Data circle -->
-      <!-- <donutApex /> -->
+        <!-- Data circle -->
+        <!-- <donutApex /> -->
 
-      <!-- data bar -->
-      <div class="row q-ma-sm q-pb-md" v-if="this.get_country_selected == 'Todo sur america'">
-        <div class="col-12">
-          <ApexColumn />
+        <!-- data bar -->
+        <div class="row q-ma-sm q-pb-md" v-if="this.get_country_selected == 'Todo sur america'">
+          <div class="col-12">
+            <ApexColumn />
+          </div>
         </div>
       </div>
-    </div>
-  </q-page>
+    </q-page>
+  </q-pull-to-refresh>
 </template>
 
 <script>
@@ -231,8 +230,7 @@ export default {
           value: "Guyana Francesa",
           img:
             "https://upload.wikimedia.org/wikipedia/commons/2/29/Flag_of_French_Guiana.svg"
-        },
-
+        }
       ]
     };
   },
@@ -246,7 +244,9 @@ export default {
   created() {
     //const pais = !localStorage.getItem('pais') ? 'Todo sur america' : localStorage.getItem('pais');
     this.set_country_selected(
-      !localStorage.getItem('pais') ? 'Todo sur america' : localStorage.getItem('pais')
+      !localStorage.getItem("pais")
+        ? "Todo sur america"
+        : localStorage.getItem("pais")
     );
     this.getCountry(this.get_country_selected);
   },
@@ -284,8 +284,8 @@ export default {
         return this.get_country_selected;
       },
       set(value) {
-        localStorage.setItem('pais', value.value);
-        const pais = localStorage.getItem('pais');
+        localStorage.setItem("pais", value.value);
+        const pais = localStorage.getItem("pais");
         this.set_country_selected(pais);
         this.getCountry(this.get_country_selected);
       }
@@ -333,8 +333,43 @@ export default {
   },
 
   methods: {
-    ...mapActions("Covid", ["getCountry"]),
-    ...mapMutations("Covid", ["set_country_selected"])
+    ...mapActions("Covid", ["getCountry", "FormatearFecha"]),
+    ...mapMutations("Covid", ["set_country_selected"]),
+    FormatearFecha(fecha) {
+      let date = new Date(fecha);
+      let dia, mes, anio, hora, minuto;
+
+      dia = date.getDate();
+      mes =
+        date.getMonth() + 1 < 10
+          ? "0" + (date.getMonth() + 1)
+          : date.getMonth() + 1;
+      anio = date.getFullYear();
+      hora = date.getHours();
+      minuto = date.getMinutes();
+
+      return dia + "/" + mes + "/" + anio + " " + date.toLocaleTimeString();
+    },
+    refresh(done) {
+      try {
+        this.getCountry(this.get_country_selected);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        done();
+        this.$q.notify({
+          progress: true,
+          caption: this.FormatearFecha(new Date()),
+          timeout: 2500,
+          message: `
+        <span class="notificacion">
+          Actualizado
+        </span>
+        `,
+          html: true
+        });
+      }
+    }
   }
 };
 </script>
@@ -343,6 +378,10 @@ export default {
 .main-column {
   width: 50%;
   height: 100%;
+}
+
+.notificacion {
+  opacity: 0.5;
 }
 
 @media (max-width: $breakpoint-sm-max) {

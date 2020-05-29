@@ -54,7 +54,7 @@
             :class="'bg-'+item.color"
           />
         </q-card-actions>
-        <q-card-section class="q-ma-sm q-py-none text-center">
+        <!-- <q-card-section class="q-ma-sm q-py-none text-center">
           <div class="text-caption text-grey-8">
             <q-btn
               size="sm"
@@ -65,7 +65,7 @@
               label="Diseño FrontEnd"
             />
           </div>
-        </q-card-section>
+        </q-card-section> -->
       </q-card>
     </q-dialog>
 

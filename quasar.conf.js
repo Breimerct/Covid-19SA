@@ -57,7 +57,8 @@ module.exports = function (/* ctx */) {
       plugins: [
         'Loading',
         'LoadingBar',
-        'Dialog'
+        'Dialog',
+        'Notify'
       ]
     },
 

@@ -9,7 +9,7 @@
     <q-route-tab
       v-for="(item, index) in Rutas"
       :key="index"
-      class="q-mx-xs"
+      class="q-mx-sm"
       :icon="item.icon"
       :to="item.to"
       :label="item.label"
@@ -27,7 +27,7 @@ export default {
         {
           icon: "home",
           to: "/",
-          label: ""
+          label: "Home"
         },
         /*
         {
