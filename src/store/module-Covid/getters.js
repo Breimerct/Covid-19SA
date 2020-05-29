@@ -45,15 +45,15 @@ export function get_Casos_Por_Dia(state) {
     let fechaInit = []
     let char_Data = {
       series: [{
-          name: 'Casos por día',
+          name: 'Confirmados',
           data: []
         },
         {
-          name: 'Muertes por día',
+          name: 'Fallecidos',
           data: []
         },
         {
-          name: 'Recuperados por día',
+          name: 'Recuperados',
           data: []
         }
       ]

@@ -2,7 +2,7 @@
   <q-pull-to-refresh @refresh="refresh" color="black" bg-color="white" icon="autorenew">
     <q-page class="flex q-pa-sm doc-container justify-center non-selectable">
       <div class="column main-column">
-<!-- ---------------------------------------------------------------------------------------------------------- -->
+        <!-- ---------------------------------------------------------------------------------------------------------- -->
         <div class="row q-ma-sm">
           <div class="col-12">
             <q-select
@@ -20,7 +20,7 @@
               </template>
 
               <template v-slot:append v-if="this.get_data_Covid.img != ''">
-                <img width="35" :src="get_data_Covid.img" />
+                <!-- <img width="35" :src="get_data_Covid.img" /> -->
               </template>
 
               <template v-slot:option="scope">
@@ -38,14 +38,28 @@
           </div>
         </div>
 
-        <div class="q-px-md q-mt-md">
-          <!-- {{ this.get_data_Covid.updated }} -->
-        </div>
-
+        <!-- Casos confirmados -->
         <div class="row q-ma-sm">
           <div class="col-12">
             <q-card class="card-border text-white bg-green q-pa-sm">
+              <q-item>
+                <q-item-section avatar>
+                  <q-avatar size="60px">
+                    <img :src="get_data_Covid.img"  />
+                  </q-avatar>
+                </q-item-section>
+
+                <q-item-section>
+                  <q-item-label>Ùltima actualizaciòn</q-item-label>
+                  <q-item-label class="text-white" caption>{{ this.get_data_Covid.updated }}</q-item-label>
+                </q-item-section>
+              </q-item>
+              <q-separator />
               <q-card-section class="q-my-none">
+                <!-- <div class="text-overline text-right q-mb-sm">
+                  {{ this.get_data_Covid.updated }}
+                  <q-badge class="text-subtitle2" color="positive">{{ this.get_data_Covid.updated }}</q-badge>
+                </div> -->
                 <div class="text-h6 text-weight-light text-weight-light">Total de casos confirmados</div>
               </q-card-section>
               <q-card-section class="q-py-none">
@@ -110,7 +124,7 @@
         </div>
 
         <!-- Estadisticas por dia -->
-        <div class="row q-ma-sm q-pb-md" v-if="this.get_country_selected == ''">
+        <div class="row q-ma-sm q-pb-md" v-if="this.get_country_selected != 'Todo sur america'">
           <div class="col-12">
             <GraficaPorDia />
           </div>
@@ -122,7 +136,7 @@
             <ApexColumn />
           </div>
         </div>
-<!-- ---------------------------------------------------------------------------------------------------------- -->
+        <!-- ---------------------------------------------------------------------------------------------------------- -->
       </div>
     </q-page>
   </q-pull-to-refresh>
@@ -228,7 +242,7 @@ export default {
           value: "Guyana",
           img:
             "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Flag_of_Guyana.svg/1200px-Flag_of_Guyana.svg.png"
-        },
+        }
         /**
         //Islas Malvinas
         {
@@ -292,7 +306,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters("Covid", ["get_country_selected", "get_data_Covid", "get_Casos_Por_Dia"]),
+    ...mapGetters("Covid", [
+      "get_country_selected",
+      "get_data_Covid",
+      "get_Casos_Por_Dia"
+    ]),
     country_Selected: {
       get() {
         return this.get_country_selected;

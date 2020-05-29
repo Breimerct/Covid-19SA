@@ -27,7 +27,7 @@ export default {
     getOptions() {
       let options = {
         labels: this.get_contries_apexchart.categories,
-        colors: ["#7FABFF", "#E6FF45", "#17ead9"],
+        colors: ["#ffc107", "#E6FF45", "#17ead9"],
         title: {
           text: "Pruebas por pais",
           align: "center",
@@ -41,13 +41,13 @@ export default {
         fill: {
           type: "gradient",
           gradient: {
-            shade: "black",
+            shade: "dark",
             type: "vertical",
             shadeIntensity: 0.2,
             inverseColors: false,
             opacityFrom: 1,
             opacityTo: 0.9,
-            stops: [0, 100]
+            stops: [0, 99,100]
           }
         },
         dataLabels: {

@@ -19,6 +19,14 @@ LoadingBar.setDefaults({
   position: 'top'
 })
 
+const notify = Notify.setDefaults({
+  progress: true,
+  html: true,
+  position: 'top-right',
+  timeout: 3500,
+  type: 'positive'
+})
+
 var countries = {
   country: "",
   updated: null,
@@ -75,19 +83,15 @@ export const getCountry = async ({
           localStorage.setItem('fechaContinente', FormatearFecha(data.updated))
 
           if (dateUpdatedSouthAmerica != FormatearFecha(data.updated)) {
+            
             Notify.create({
-              progress: true,
               message: `
                 <span>
                   Base de datos actualizada.
                 </span>
               `,
-              html: true,
               caption: FormatearFecha(data.updated),
-              position: 'top-right',
-              timeout: 3500,
-              textColor: 'white',
-              type: 'info'
+              type: 'positive'
             })
 
             localStorage.setItem('fechaContinente', FormatearFecha(data.updated))
@@ -128,18 +132,13 @@ export const getCountry = async ({
           if (dateUpdatedPais != FormatearFecha(data.updated)) {
 
             Notify.create({
-              progress: true,
               message: `
                 <span>
                   Base de datos actualizada.
                 </span>
               `,
-              html: true,
               caption: FormatearFecha(data.updated),
-              position: 'top-right',
-              timeout: 3500,
-              textColor: 'white',
-              type: 'info'
+              type: 'positive'
             })
 
             localStorage.setItem('fechaPais', FormatearFecha(data.updated))
