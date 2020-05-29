@@ -9,7 +9,9 @@
               color="primary"
               rounded
               outlined
+              :use-input="false"
               no-error-icon
+              filled
               popup-content-style="font-size:16px;"
               v-model="country_Selected"
               :options="options"
