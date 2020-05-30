@@ -31,7 +31,7 @@ export default {
         },
         xaxis: {
           type: "datetime",
-          min: new Date("04/30/2020").getTime(),
+          //min: new Date("04/30/2020").getTime(),
 
           tickAmount: 2
         },
