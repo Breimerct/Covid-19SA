@@ -1,15 +1,9 @@
 import axios from "axios"
 import {
   LoadingBar,
-  date
-} from 'quasar'
-
-import {
+  date,
   Loading,
-  QSpinnerGears
-} from 'quasar'
-
-import {
+  QSpinnerGears,
   Notify
 } from 'quasar'
 
@@ -19,11 +13,11 @@ LoadingBar.setDefaults({
   position: 'top'
 })
 
-const notify = Notify.setDefaults({
+Notify.setDefaults({
   progress: true,
   html: true,
   position: 'top-right',
-  timeout: 3500,
+  timeout: 2500,
   type: 'positive'
 })
 
