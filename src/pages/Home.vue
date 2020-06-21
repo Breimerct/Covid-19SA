@@ -1,11 +1,14 @@
 <template>
-  <q-pull-to-refresh @refresh="this.refresh" color="black" bg-color="white" icon="autorenew">
+  <q-pull-to-refresh
+    @refresh="this.refresh"
+    color="black"
+    bg-color="white"
+    icon="autorenew"
+  >
     <q-page class="flex q-pa-sm doc-container justify-center non-selectable">
       <div class="column main-column">
-        <!-- ---------------------------------------------------------------------------------------------------------- -->
         <div class="row q-ma-sm">
           <div class="col-12">
-
             <q-select
               color="primary"
               rounded
@@ -30,9 +33,7 @@
                   </q-item-section>
                 </q-item>
               </template>
-
             </q-select>
-
           </div>
         </div>
 
@@ -49,32 +50,38 @@
 
                 <q-item-section>
                   <q-item-label>Ùltima actualizaciòn de los datos</q-item-label>
-                  <q-item-label class="text-white" caption>{{ this.get_data_Covid.updated }}</q-item-label>
+                  <q-item-label class="text-white" caption>{{
+                    this.get_data_Covid.updated
+                  }}</q-item-label>
                 </q-item-section>
               </q-item>
               <q-separator />
               <q-card-section class="q-my-none">
-                <div class="text-h6 text-weight-light text-weight-light">Total de casos confirmados</div>
+                <div class="text-h6 text-weight-light text-weight-light">
+                  Total de casos confirmados
+                </div>
               </q-card-section>
               <q-card-section class="q-py-none">
                 <div class="row">
                   <div class="col-4">
-                    <q-icon name="mdi-check-bold" color="greenn" size="32px"></q-icon>
+                    <q-icon
+                      name="mdi-check-bold"
+                      color="greenn"
+                      size="32px"
+                    ></q-icon>
                   </div>
                   <div class="col-8 text-right">
                     <div class="text-h4 texto-green">
                       <span v-if="this.get_data_Covid != null">
-                        {{
-                        get_data_Covid.cases | formatter
-                        }}
+                        {{ get_data_Covid.cases | formatter }}
                       </span>
                       <span v-else>...</span>
                     </div>
                     <div
                       v-if="
-                      this.get_data_Covid != null &&
-                      this.get_data_Covid.todayCases != 0
-                    "
+                        this.get_data_Covid != null &&
+                          this.get_data_Covid.todayCases != 0
+                      "
                       class="text-italic texto-green"
                     >
                       casos por dia+
@@ -89,8 +96,17 @@
 
         <!-- Data Covid -->
         <div class="row q-pa-sm q-col-gutter-lg">
-          <div class="col-6" v-for="(data, index) in casesCategoriesData" :key="index">
-            <q-card dark rounded class="card-border text-white" :class="['bg-'+data.color]">
+          <div
+            class="col-6"
+            v-for="(data, index) in casesCategoriesData"
+            :key="index"
+          >
+            <q-card
+              dark
+              rounded
+              class="card-border text-white"
+              :class="['bg-' + data.color]"
+            >
               <q-card-section>
                 <div class="text-h6 text-weight-light">{{ data.name }}</div>
               </q-card-section>
@@ -106,9 +122,16 @@
                       <div
                         class="text-right text-subtitle1"
                         style="font-size:20px;"
-                      >{{ data.total | formatter }}</div>
+                      >
+                        {{ data.total | formatter }}
+                      </div>
                       <!-- Category Incrmented -->
-                      <div v-if="data.today !== 0" class="text-italic text-right">+ {{ data.today }}</div>
+                      <div
+                        v-if="data.today !== 0"
+                        class="text-italic text-right"
+                      >
+                        + {{ data.today }}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -118,19 +141,34 @@
         </div>
 
         <!-- Estadisticas por dia -->
-        <div class="row q-ma-sm q-pb-md" v-if="this.get_country_selected != 'Todo sur america'">
+        <div
+          class="row q-ma-sm q-pb-md"
+          v-if="this.get_country_selected != 'Todo sur america'"
+        >
+          <div class="col-12">
+            <donutApex />
+          </div>
+        </div>
+
+        <!-- Estadisticas por dia -->
+        <div
+          class="row q-ma-sm q-pb-md"
+          v-if="this.get_country_selected != 'Todo sur america'"
+        >
           <div class="col-12">
             <GraficaPorDia />
           </div>
         </div>
 
         <!-- data bar -->
-        <div class="row q-ma-sm q-pb-md" v-if="this.get_country_selected == 'Todo sur america'">
+        <div
+          class="row q-ma-sm q-pb-md"
+          v-if="this.get_country_selected == 'Todo sur america'"
+        >
           <div class="col-12">
             <ApexColumn />
           </div>
         </div>
-        <!-- ---------------------------------------------------------------------------------------------------------- -->
       </div>
     </q-page>
   </q-pull-to-refresh>
@@ -139,7 +177,7 @@
 <script>
 import { mapGetters, mapActions, mapMutations } from "vuex";
 import ApexColumn from "components/Grafica/Grafica.vue";
-import donutApex from "components/Grafica/GraficaMuertes.vue";
+import donutApex from "components/Grafica/GraficaDonut.vue";
 import GraficaPorDia from "components/Grafica/GraficaPorDia.vue";
 export default {
   name: "PageIndex",

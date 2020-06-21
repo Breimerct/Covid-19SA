@@ -77,3 +77,41 @@ export function get_Casos_Por_Dia(state) {
     return char_Data = null;
   }
 }
+
+export const getDataCountry = (state) => {
+  try {
+
+    let data = [{
+      names: [],
+      colors: [],
+      series: []
+    }]
+
+    Object.keys(state.data_Covid).forEach( key => {
+      if(key == 'active'){
+        
+        data[0].names.push('Activos')
+        data[0].colors.push('#03a9f4')
+        data[0].series.push(state.data_Covid[key])
+
+      }else if(key == 'deaths'){
+        
+        data[0].names.push('Muertes')
+        data[0].colors.push('#f44336')
+        data[0].series.push(state.data_Covid[key])
+
+      }else if(key == 'recovered'){
+        
+        data[0].names.push('Recuperados')
+        data[0].colors.push('#00bcd4')
+        data[0].series.push(state.data_Covid[key])
+
+      }
+    })
+
+    return data[0];
+
+  } catch (error) {
+    console.log(error);
+  }
+}
