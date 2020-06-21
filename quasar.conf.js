@@ -110,9 +110,9 @@ module.exports = function (/* ctx */) {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: 'covid19SA',
-        short_name: 'covid19SA',
-        description: 'una app sobre gestion e informacón sobre l covid 19 en todo sur america',
+        name: 'Covid-19 South América',
+        short_name: 'Covid-19 South América',
+        description: 'una app sobre gestión e informacón sobre el covid 19 en todo sur america',
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',
