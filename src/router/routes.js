@@ -1,19 +1,20 @@
 import Cuidate from 'pages/Cuidate.vue'
 
-const routes = [
-  {
+const routes = [{
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
-    children: [
-      { path: '', component: () => import('pages/Index.vue') }
-    ]
+    children: [{
+      path: '',
+      component: () => import('pages/Home.vue')
+    }]
   },
   {
     path: '/Cuidate',
     component: () => import('layouts/MainLayout.vue'),
-    children: [
-      { path: '', component: Cuidate }
-    ]
+    children: [{
+      path: '',
+      component: Cuidate
+    }]
   }
 ]
 

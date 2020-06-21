@@ -13,14 +13,14 @@
   "dependencies": {
     "@capacitor/core": "^2.1.0",
     "@mdi/font": "^5.2.45",
-    "@quasar/extras": "^1.0.0",
+    "@quasar/extras": "^1.8.2",
     "apexcharts": "^3.19.2",
     "axios": "^0.18.1",
-    "quasar": "^1.0.0",
+    "quasar": "^1.12.6",
     "vue-apexcharts": "^1.5.3"
   },
   "devDependencies": {
-    "@quasar/app": "^1.0.0"
+    "@quasar/app": "^1.9.6"
   },
   "engines": {
     "node": ">= 10.18.1",

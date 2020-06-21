@@ -1,10 +1,11 @@
 <template>
-  <q-pull-to-refresh @refresh="refresh" color="black" bg-color="white" icon="autorenew">
+  <q-pull-to-refresh @refresh="this.refresh" color="black" bg-color="white" icon="autorenew">
     <q-page class="flex q-pa-sm doc-container justify-center non-selectable">
       <div class="column main-column">
         <!-- ---------------------------------------------------------------------------------------------------------- -->
         <div class="row q-ma-sm">
           <div class="col-12">
+
             <q-select
               color="primary"
               rounded
@@ -12,29 +13,26 @@
               no-error-icon
               popup-content-style="font-size:16px;"
               v-model="country_Selected"
-              :options="options"
+              :options="this.options"
               label="Seleccione un pais"
             >
               <template v-slot:prepend>
                 <q-icon color="primary" name="place" />
               </template>
 
-              <template v-slot:append v-if="this.get_data_Covid.img != ''">
-                <!-- <img width="35" :src="get_data_Covid.img" /> -->
-              </template>
-
               <template v-slot:option="scope">
                 <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
                   <q-item-section avatar>
-                    <!-- <q-icon :name="scope.opt.img" /> -->
                     <img width="45" :src="scope.opt.img" />
                   </q-item-section>
                   <q-item-section>
-                    <q-item-label v-html="scope.opt.label" />
+                    <q-item-label v-html="scope.opt.value" />
                   </q-item-section>
                 </q-item>
               </template>
+
             </q-select>
+
           </div>
         </div>
 
@@ -45,7 +43,7 @@
               <q-item>
                 <q-item-section avatar>
                   <q-avatar size="60px">
-                    <img :src="get_data_Covid.img"  />
+                    <img :src="get_data_Covid.img" />
                   </q-avatar>
                 </q-item-section>
 
@@ -56,10 +54,6 @@
               </q-item>
               <q-separator />
               <q-card-section class="q-my-none">
-                <!-- <div class="text-overline text-right q-mb-sm">
-                  {{ this.get_data_Covid.updated }}
-                  <q-badge class="text-subtitle2" color="positive">{{ this.get_data_Covid.updated }}</q-badge>
-                </div> -->
                 <div class="text-h6 text-weight-light text-weight-light">Total de casos confirmados</div>
               </q-card-section>
               <q-card-section class="q-py-none">
@@ -152,6 +146,7 @@ export default {
 
   data() {
     return {
+      model: null,
       options: [
         //todo sur america
         {
@@ -367,6 +362,9 @@ export default {
   methods: {
     ...mapActions("Covid", ["getCountry", "FormatearFecha"]),
     ...mapMutations("Covid", ["set_country_selected"]),
+    prueba(value) {
+      console.log(value);
+    },
     FormatearFecha(fecha) {
       let date = new Date(fecha);
       let dia, mes, anio, hora, minuto;
