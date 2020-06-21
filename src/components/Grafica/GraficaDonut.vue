@@ -1,13 +1,13 @@
 <template>
   <div>
-    <q-card class="bg-grey-3 fit card-border text-center">
-      <q-card-section>
-        <apexchart
-          type="donut"
-          :options="getApexOptions"
-          :series="getApexSeries"
-        ></apexchart>
-      </q-card-section>
+    <q-card class="bg-grey-3 fit card-border text-center q-pa-sm">
+      <apexchart
+        style="min-width: 330px; width: 100%; heith: 100%;"
+        type="donut"
+        :options="getApexOptions"
+        :series="getApexSeries"
+      ></apexchart>
+      
     </q-card>
   </div>
 </template>
@@ -77,10 +77,7 @@ export default {
                 res += nums[i];
               }
               return val + " : " + res;
-            }
-            catch(error){
-              
-            }
+            } catch (error) {}
           },
           inverseOrder: false,
           width: undefined,
@@ -118,9 +115,6 @@ export default {
         responsive: [
           {
             breakpoint: 480,
-            char:{
-              width: 350
-            },
             options: {
               legend: {
                 position: "bottom"
@@ -129,7 +123,7 @@ export default {
           }
         ]
       };
-      
+
       return apexOptions;
     },
     getApexSeries() {
