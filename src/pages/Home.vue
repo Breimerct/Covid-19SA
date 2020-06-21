@@ -140,15 +140,15 @@
           </div>
         </div>
 
-        <!-- Estadisticas por dia -->
-        <div
+        <!-- Estadisticas con grafico de dona -->
+        <!--<div
           class="row q-ma-sm q-pb-md"
           v-if="this.get_country_selected != 'Todo sur america'"
         >
           <div class="col-12">
             <donutApex />
           </div>
-        </div>
+        </div>-->
 
         <!-- Estadisticas por dia -->
         <div
