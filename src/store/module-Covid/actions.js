@@ -319,7 +319,7 @@ export const getDateperDays = async ({
   dispatch
 }, payload) => {
   try {
-
+    if(payload == "Malvinas" || payload == "French Guiana") return;
     const country = await (await axios.get(`https://corona.lmao.ninja/v2/historical/${payload}?lastdays=30`)).data;
 
     let casos = country.timeline.cases;

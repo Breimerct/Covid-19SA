@@ -41,7 +41,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered content-class="bg-grey-3 text-black">
+    <q-drawer v-if="!isMobile" v-model="leftDrawerOpen" show-if-above bordered content-class="bg-grey-3 text-black">
       <q-img
         class="absolute-top"
         src="https://img.freepik.com/vector-gratis/tema-azul-clasico-abstracto-fondo-pantalla_23-2148410363.jpg?size=626&ext=jpg"
@@ -54,7 +54,7 @@
       </div>
         <div class="absolute-bottom bg-transparent">
           <q-avatar size="70px" class="q-mb-sm">
-            <img :src="img" />
+            <img :src="imgProfile" />
           </q-avatar>
           <div class="text-weight-bold">Breimer Correa</div>
           <div>@Breimerct</div>
@@ -76,7 +76,7 @@
           <div>
             <q-avatar size="100px" class="shadow-10">
               <img
-                :src="img"
+                :src="imgProfile"
               />
             </q-avatar>
           </div>
@@ -102,18 +102,6 @@
             :class="'bg-'+item.color"
           />
         </q-card-actions>
-        <!-- <q-card-section class="q-ma-sm q-py-none text-center">
-          <div class="text-caption text-grey-8">
-            <q-btn
-              size="sm"
-              @click="openLink('https://covid19ca.app/')"
-              outline
-              rounded
-              color="primary"
-              label="Diseño FrontEnd"
-            />
-          </div>
-        </q-card-section>-->
       </q-card>
     </q-dialog>
 
@@ -143,7 +131,7 @@ export default {
 
   data() {
     return {
-      img : 'https://lh3.googleusercontent.com/-1MJlfJV2AU8/Xroef9yEssI/AAAAAAAAAAs/XU69shg8NpgimOt0FbGtOxZoyGEVuE6AQCEwYBhgLKs4DAL1Ocqx4bWrmkXglxudrATAJ5eC-k3PhJ8V-KUjQYMDL7rZY06_PZpLox-cCC3qydK-8VYteShUnXpLaVkof4mrlr_1b9WhXzk0C-N6NnioM8QhqJGZ5MVcvX5rMG5DXVOLF1pA5PNFsGH0ALT6-jN2-LzAN9Jkr-C_hXnXnV3t-Hv-926vcPcQfFt18AY8i1lFh92xIuMTpmTAizEx1EOMLpmZFFcwJ4j7LSY-TmzDdjHp7ymggtQdtJYvA3ZiliTbLTcEY-EJfqzt08vLHLHcIeLfWtAJGSSSTacxPTSVkkRYdfM5VmfmDCrX6xn8uvdygSACUz6BJs8zGZvSzib5_3IZEeSgyu0wCCm_vS0j9bYvpxrJrwACarsXvwFG5R-OlVm7joOhaeJ84KV96DMSpqKqAGf7BEdSh3pS5XhZFd7psXv7q20A6Ws2BRa0XoQgP-PHZAQdvjdzOdH_pUfS9jQqSzalL14Bmjle9CsAwkxJPPFIJdS5YuiWlgBp-gKE90xA3HAUhXkLlcWO2cNIYW2jNocQGo7K0v9QLLhQYM9OUZrgnu8zC4F6lBoYp9H7VkP3HPFivZ1hihxn8yNNsyxomPAs_BkfESV2pMI3agfYF/w140-h140-p/20180910_134136.jpg',
+      imgProfile : 'https://lh3.googleusercontent.com/a-/AOh14GiLlXbagnR7G9QPDQvpzTsXF8fCFCtIpPMMybI-Nl4=s360-c',
       leftDrawerOpen: false,
       dialog: false,
       aboutVersion: "1.5",

@@ -2,7 +2,6 @@
 .thumbs.db
 node_modules
 debug.log
-.firebase/
 # Quasar core related directories
 .quasar
 /dist
@@ -32,3 +31,7 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
+
+#firebase
+src/boot/firebase.js
+.firebase

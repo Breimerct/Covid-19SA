@@ -16,6 +16,7 @@
     "@quasar/extras": "^1.8.2",
     "apexcharts": "^3.19.2",
     "axios": "^0.18.1",
+    "firebase": "^7.19.0",
     "quasar": "^1.12.6",
     "vue-apexcharts": "^1.5.3"
   },

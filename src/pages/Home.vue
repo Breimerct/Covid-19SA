@@ -6,7 +6,7 @@
     icon="autorenew"
   >
     <q-page class="flex q-pa-sm doc-container justify-center non-selectable">
-      <div class="column main-column">
+      <div class=" main-column">
         <div class="row q-ma-sm">
           <div class="col-12">
             <q-select
@@ -84,7 +84,7 @@
                       "
                       class="text-italic texto-green"
                     >
-                      casos por dia+
+                      incremento+
                       {{ get_data_Covid.todayCases | formatter }}
                     </div>
                   </div>
@@ -140,21 +140,26 @@
           </div>
         </div>
 
-        <!-- Estadisticas con grafico de dona -->
-        <!--<div
-          class="row q-ma-sm q-pb-md"
-          v-if="this.get_country_selected != 'Todo sur america'"
-        >
+        <!-- No data -->
+        <div class="row q-ma-sm q-pb-md" v-if="noDataVisivility">
           <div class="col-12">
-            <donutApex />
+            <q-card class="bg-grey-3 fit card-border text-center">
+              <q-card-section
+                class="flex justify-center items-center content-center column"
+              >
+                <div class="col-12">
+                  <img src="../assets/no-data.svg" width="100" alt="no data" />
+                </div>
+                <div class="text-h4 col-12">
+                  No hay datos para mostrar
+                </div>
+              </q-card-section>
+            </q-card>
           </div>
-        </div>-->
+        </div>
 
         <!-- Estadisticas por dia -->
-        <div
-          class="row q-ma-sm q-pb-md"
-          v-if="this.get_country_selected != 'Todo sur america'"
-        >
+        <div class="row q-ma-sm q-pb-md" v-if="this.visivilityChar">
           <div class="col-12">
             <GraficaPorDia />
           </div>
@@ -184,7 +189,6 @@ export default {
 
   data() {
     return {
-      model: null,
       options: [
         //todo sur america
         {
@@ -275,8 +279,7 @@ export default {
           value: "Guyana",
           img:
             "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Flag_of_Guyana.svg/1200px-Flag_of_Guyana.svg.png"
-        }
-        /**
+        },
         //Islas Malvinas
         {
           label: "Islas Malvinas",
@@ -284,6 +287,7 @@ export default {
           img:
             "https://upload.wikimedia.org/wikipedia/commons/8/83/Flag_of_the_Falkland_Islands.svg"
         },
+
         //Guyana Francesa
         {
           label: "Guyana Francesa",
@@ -291,7 +295,6 @@ export default {
           img:
             "https://upload.wikimedia.org/wikipedia/commons/2/29/Flag_of_French_Guiana.svg"
         }
-        */
       ]
     };
   },
@@ -310,6 +313,7 @@ export default {
         : localStorage.getItem("pais")
     );
     this.getCountry(this.get_country_selected);
+    //analytics.setCurrentScreen("/");
   },
 
   filters: {
@@ -354,6 +358,19 @@ export default {
         this.set_country_selected(pais);
         this.getCountry(this.get_country_selected);
       }
+    },
+    visivilityChar() {
+      return (
+        this.get_country_selected != "Todo sur america" &&
+        this.get_country_selected != "Islas Malvinas" &&
+        this.get_country_selected != "Guyana Francesa"
+      );
+    },
+    noDataVisivility() {
+      return (
+        this.get_country_selected == "Islas Malvinas" ||
+        this.get_country_selected == "Guyana Francesa"
+      );
     },
     casesCategoriesData() {
       const dataCategories = [
@@ -433,7 +450,7 @@ export default {
 
 <style lang="scss" scoped>
 .main-column {
-  width: 50%;
+  width: 60%;
   height: 100%;
 }
 
@@ -443,7 +460,7 @@ export default {
   color: black;
 }
 
-@media (max-width: $breakpoint-sm-max) {
+@media (max-width: $breakpoint-xs-max) {
   .main-column {
     width: 100%;
     height: 100%;
